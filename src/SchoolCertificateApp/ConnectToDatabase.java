@@ -12,20 +12,16 @@ import java.sql.*;
  * @author Dell
  */
 public class ConnectToDatabase {
-    public ConnectToDatabase{
-        String query;
+    private Connection con;
+
+    public ConnectToDatabase {
         try {
-            Class.forName("com.mysgl.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schoolcertificateappdatabase",
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schoolcertificateappdatabase",
                     "root", "");
+            Class.forName("com.mysgl.jdbc.Driver");
             Statement stmt = con.createStatement();
-            //query = metoda zwracajaca stringa
-            while (query != null) {
-                ResultSet rs = stmt.executeQuery(query);
-                //query = metoda zwracajaca stringa
-            }
-            con.close();
         }
+
         catch (SQLException e) {
             System.err.println("Nie znaleziono bazy danych!");
         }
@@ -33,4 +29,13 @@ public class ConnectToDatabase {
             System.err.println("Nie można połączyć z bazą danych!");;
         }
     }
+
+    public Connection getConnection() {
+        return con;
+    }
+
+    public void cloceConnection() {
+        con.close();
+    }
+
 }
